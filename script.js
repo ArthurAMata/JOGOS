@@ -6,29 +6,21 @@ const minDistance = 50;
 let tubeSpeed = 2.5;
 
 
-const vowels = ['A', 'E', 'I', 'O', 'U']; 
-const consonants = ['B', 'C', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'V', 'W', 'X', 'Y', 'Z']; // Consoantes
+const vowels = 'AEIOU';
+const consonants = 'BCDFGHJKLMNPQRSTVWXYZ'
 
-const getRandomLetter = (letters) => {
-    const randomIndex = Math.floor(Math.random() * letters.length);
-    return letters[randomIndex];
-};
+const getRandomLetter = () => {
+    const letter = Math.random() >= 0.5 ? vowels[parseInt(Math.random()*vowels.length)] :
+    consonants[parseInt(Math.random()*consonants.length)]
 
-const createLetter = () => {
-    const letterType = Math.random() < 0.5 ? vowels : consonants;
-    const letter = getRandomLetter(letterType);
-    return letter;
+    letraA.textContent = letter;
 };
 
 const moveLetter = () => {
-    const letter = createLetter();
-    letraA.textContent = letter;
-    letraA.style.left = '800px'; 
-
+    
     const animation = letraA.animate(
-        [{ left: '1300px' }, { left: '-50px' }],
+        [{ left: '100%' }, { left: '-2%' }],
         { duration: 3500 ,iterations: Infinity},
-        
     );
 
     animation.onfinish = () => {
@@ -38,6 +30,7 @@ const moveLetter = () => {
             alert('Game Over');
         }
     };
+
 };
 
 
@@ -70,12 +63,16 @@ const letterLeft = parseInt(letraA.style.left);
         }
 
 moveLetter(); 
-
+getRandomLetter();
 document.addEventListener('keydown',pulando);
-
 const loop = setInterval(() => {
     const posicaotubo = tubo.offsetLeft;
     const marioPosicao = +window.getComputedStyle(mario).bottom.replace('px', '');
+
+    const letterPosition = letraA.offsetLeft;
+    if(letterPosition<=5){
+        getRandomLetter();
+    }
 
     if (posicaotubo <= 90 && posicaotubo > 0 && marioPosicao < 80) {
         tubo.style.animation = 'none';
@@ -84,7 +81,7 @@ const loop = setInterval(() => {
         mario.style.animation = 'none';
         mario.style.bottom = `${marioPosicao}px`;
 
-        mario.src = 'morte.png';
+        mario.src = 'imgs/morte.png';
         mario.style.width = '150px';
 
         clearInterval(loop);
