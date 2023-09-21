@@ -16,13 +16,14 @@ const getRandomLetter = () => {
     letraA.textContent = letter;
 };
 
+
 const moveLetter = () => {
     
     const animation = letraA.animate(
-        [{ left: '100%' }, { left: '-2%' }],
+        [{ left: '100%' }, { left: '-22%' }],
         { duration: 2500 ,iterations: Infinity},
-    );
-
+        );
+        
     animation.onfinish = () => {
         if (lives > 0) {
             moveLetter(); 
@@ -70,10 +71,9 @@ const loop = setInterval(() => {
     const marioPosicao = +window.getComputedStyle(mario).bottom.replace('px', '');
 
     const letterPosition = letraA.offsetLeft;
-    if(letterPosition<=5){
+    if(letterPosition<=-2){
         getRandomLetter();
     }
-
     if (posicaotubo <= 90 && posicaotubo > 0 && marioPosicao < 80) {
         tubo.style.animation = 'none';
         tubo.style.left = `${posicaotubo}px`;
