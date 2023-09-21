@@ -20,7 +20,7 @@ const moveLetter = () => {
     
     const animation = letraA.animate(
         [{ left: '100%' }, { left: '-2%' }],
-        { duration: 3500 ,iterations: Infinity},
+        { duration: 2500 ,iterations: Infinity},
     );
 
     animation.onfinish = () => {
