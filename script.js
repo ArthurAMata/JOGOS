@@ -48,9 +48,6 @@ document.addEventListener('keydown',pulando);
 const loop = setInterval(() => {
     const posicaotubo = tubo.offsetLeft;
     const marioPosicao = parseInt(+window.getComputedStyle(mario).bottom.replace('px', '')) ;
-    const letraBottom = parseInt(+window.getComputedStyle(letraA).bottom.replace('px', ''));
-    const letraLeft = letraA.offsetLeft;
-    const difference = marioPosicao - letraBottom;
 
     const letterPosition = letraA.offsetLeft;
     if(letterPosition<=-2){
@@ -76,6 +73,14 @@ const loop = setInterval(() => {
         clearInterval(loop);
     }
 
+}, 10);
+
+setInterval(() =>{
+    const marioPosicao = parseInt(+window.getComputedStyle(mario).bottom.replace('px', '')) ;
+    const letraBottom = parseInt(+window.getComputedStyle(letraA).bottom.replace('px', ''));
+    const letraLeft = letraA.offsetLeft;
+    const difference = marioPosicao - letraBottom;
+
     if(letraLeft<=90 && letraLeft>0 && difference<=100 && difference>=-100){
     
         console.log('got');
@@ -87,6 +92,4 @@ const loop = setInterval(() => {
         }
         
     }
-
-
-}, 10);
+}, 300)
