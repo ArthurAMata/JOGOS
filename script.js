@@ -87,3 +87,27 @@ const loop = setInterval(() => {
         clearInterval(loop);
     }
 }, 10);
+
+
+
+
+
+const loopletter = setInterval(() => {
+    const letterposicao = letter.offsetLeft;
+    if(letterposicao === 0){
+        
+    }
+
+    if (posicaotubo <= 90 && posicaotubo > 0 && marioPosicao < 80) {
+        tubo.style.animation = 'none';
+        tubo.style.left = `${posicaotubo}px`;
+
+        mario.style.animation = 'none';
+        mario.style.bottom = `${marioPosicao}px`;
+
+        mario.src = 'imgs/morte.png';
+        mario.style.width = '150px';
+
+        clearInterval(loop);
+    }zzzzz
+}, 10);
