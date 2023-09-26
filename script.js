@@ -1,9 +1,8 @@
 const mario = document.querySelector('.mario');
 const tubo = document.querySelector('.tubo');
 const letraA = document.querySelector('.letras');
+const lifes = document.querySelector('#vidaCount');
 let isJumping = false;
-const minDistance = 50;
-let tubeSpeed = 2.5;
 
 
 const vowels = 'AEIOU';
@@ -16,26 +15,20 @@ const getRandomLetter = () => {
     letraA.textContent = letter;
 };
 
-//test
 const moveLetter = () => {
     
     let randomHeight = parseInt(Math.random()*180);
-    let randomLeft = parseInt(Math.random()*94)
-
     setInterval(() =>{
         randomHeight = parseInt(Math.random()*180);
-        randomLeft = parseInt(Math.random()*94)
         
         letraA.style.bottom = `${randomHeight}px`
-        console.log(randomHeight);
-        console.log(randomLeft);
     }, 2500)
 
     letraA.animate(
-        [{ left: `${randomLeft}` }, { left: `-12%` }],
+        [{ left: `70%` }, { left: `-40%` }],
         { duration: 2500 ,iterations: Infinity},
         );
-    };
+};
 
 
 const pulando = () => {
@@ -49,29 +42,15 @@ const pulando = () => {
     }
 }
 
-
-
-const letterLeft = parseInt(letraA.style.left);
-        if (letterLeft >= 0 && letterLeft <= 50) {
-            const letter = letraA.textContent.toUpperCase();
-            if (vowels.includes(letter)) {
-                points += 1;
-            } else if (consonants.includes(letter)) {
-                lives -= 1;
-            }
-
-            pontosCount.textContent = points;
-            vidasCount.textContent = lives;
-
-            moveLetter();
-        }
-
 moveLetter(); 
 getRandomLetter();
 document.addEventListener('keydown',pulando);
 const loop = setInterval(() => {
     const posicaotubo = tubo.offsetLeft;
-    const marioPosicao = +window.getComputedStyle(mario).bottom.replace('px', '');
+    const marioPosicao = parseInt(+window.getComputedStyle(mario).bottom.replace('px', '')) ;
+    const letraBottom = parseInt(+window.getComputedStyle(letraA).bottom.replace('px', ''));
+    const letraLeft = letraA.offsetLeft;
+    const difference = marioPosicao - letraBottom;
 
     const letterPosition = letraA.offsetLeft;
     if(letterPosition<=-2){
@@ -96,28 +75,18 @@ const loop = setInterval(() => {
 
         clearInterval(loop);
     }
-}, 10);
 
+    if(letraLeft<=90 && letraLeft>0 && difference<=100 && difference>=-100){
+    
+        console.log('got');
 
-
-
-
-const loopletter = setInterval(() => {
-    const letterposicao = letter.offsetLeft;
-    if(letterposicao === 0){
+        for(let k=0; k<vowels.length; k++){
+            if(letraA.textContent==vowels[k]){
+                lifes.textContent--;
+            }
+        }
         
     }
 
-    if (posicaotubo <= 90 && posicaotubo > 0 && marioPosicao < 80) {
-        tubo.style.animation = 'none';
-        tubo.style.left = `${posicaotubo}px`;
 
-        mario.style.animation = 'none';
-        mario.style.bottom = `${marioPosicao}px`;
-
-        mario.src = 'imgs/morte.png';
-        mario.style.width = '150px';
-
-        clearInterval(loop);
-    }zzzzz
 }, 10);
