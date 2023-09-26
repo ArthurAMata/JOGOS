@@ -16,7 +16,7 @@ const getRandomLetter = () => {
     letraA.textContent = letter;
 };
 
-
+//test
 const moveLetter = () => {
     
     let randomHeight = parseInt(Math.random()*180);
