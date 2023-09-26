@@ -1,7 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
 *{
     box-sizing: border-box;
-    padding:0;
+    padding: 0;
     margin: 0;
+    font-family: 'Poppins', sans-serif;
 }
 .base-jogo{
     width:100%;
@@ -22,7 +24,7 @@
 
 @keyframes tubo-andando{
     from{
-        right: -80px;
+        right: -6%;
     }
 
     to{
@@ -34,6 +36,7 @@
     width: 150px;
     bottom: 0px;
     margin-bottom:-20px ;
+    z-index: 5;
 }
 
 .pulando {
@@ -42,16 +45,6 @@
 @keyframes pulo{
     0%{
         bottom:0px;
-    }
-    
-    20%{
-        bottom: 140px;
-        
-    }
-
-    40%{
-        bottom: 170px;
-        
     }
 
     50%{
@@ -79,45 +72,15 @@
         right: 100%;
     }
 }
-.letra-A{
-    width: 100px;
-    position: absolute;
-    bottom: 10px;
-    right: -80px;
-    animation:letra-A-andando 3.5s infinite linear;
-}
-@keyframes letra-A-andando{
-    from{
-        right: -120px;
-    }
 
-    to{
-        right: 100%;
-    }
-}
-
-.letra-lenta{
-    animation: letra-lenta-andando 5s infinite linear;
-    width: 100px;
-    position: absolute;
-    bottom: 10px;
-    right: -80px;
-}
-@keyframes letra-lenta-andando{
-    from{
-        right: -120px;
-    }
-
-    to{
-        right: 100%;
-    }
-}
 .letras {
     position: absolute;
-    top: 200px; 
+    bottom: 0px; 
     left: 1100px; 
-    width: 100px;
+    z-index: 2;
     font-size: 70px;
     font-weight: bold;
     color: rgb(251, 255, 0);
+    transition: .5s opacity;
+    opacity: 0;
 }

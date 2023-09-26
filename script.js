@@ -16,22 +16,26 @@ const getRandomLetter = () => {
     letraA.textContent = letter;
 };
 
+//test
 const moveLetter = () => {
     
-    const animation = letraA.animate(
-        [{ left: '100%' }, { left: '-2%' }],
+    let randomHeight = parseInt(Math.random()*180);
+    let randomLeft = parseInt(Math.random()*94)
+
+    setInterval(() =>{
+        randomHeight = parseInt(Math.random()*180);
+        randomLeft = parseInt(Math.random()*94)
+        
+        letraA.style.bottom = `${randomHeight}px`
+        console.log(randomHeight);
+        console.log(randomLeft);
+    }, 2500)
+
+    letraA.animate(
+        [{ left: `${randomLeft}` }, { left: `-12%` }],
         { duration: 2500 ,iterations: Infinity},
-    );
-
-    animation.onfinish = () => {
-        if (lives > 0) {
-            moveLetter(); 
-        } else {
-            alert('Game Over');
-        }
+        );
     };
-
-};
 
 
 const pulando = () => {
@@ -70,8 +74,14 @@ const loop = setInterval(() => {
     const marioPosicao = +window.getComputedStyle(mario).bottom.replace('px', '');
 
     const letterPosition = letraA.offsetLeft;
-    if(letterPosition<=5){
+    if(letterPosition<=-2){
         getRandomLetter();
+    }
+    
+    if(letraA.offsetLeft <= 1200 && letraA.offsetLeft>=60){
+        letraA.style.opacity=1;
+    } else{
+        letraA.style.opacity=0;
     }
 
     if (posicaotubo <= 90 && posicaotubo > 0 && marioPosicao < 80) {
