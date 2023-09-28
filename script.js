@@ -2,6 +2,7 @@ const mario = document.querySelector('.mario');
 const tubo = document.querySelector('.tubo');
 const letraA = document.querySelector('.letras');
 const lifes = document.querySelector('#vidaCount');
+const points = document.querySelector('#pontosCount')
 let isJumping = false;
 
 
@@ -28,8 +29,18 @@ const moveLetter = () => {
         [{ left: `70%` }, { left: `-40%` }],
         { duration: 2500 ,iterations: Infinity},
         );
-};
-
+    };
+    
+    
+    
+    const runThrowArray = (array, cont) =>{
+        for(let k=0; k<array.length; k++){
+            if(cont.textContent==array[k]){
+                return true;
+            }
+        }
+        return false;
+    }
 
 const pulando = () => {
     if (!isJumping) {
@@ -41,13 +52,17 @@ const pulando = () => {
         }, 750);
     }
 }
-
+let testPoints = 0;
+let testLifes = 3;
 moveLetter(); 
 getRandomLetter();
 document.addEventListener('keydown',pulando);
 const loop = setInterval(() => {
     const posicaotubo = tubo.offsetLeft;
     const marioPosicao = parseInt(+window.getComputedStyle(mario).bottom.replace('px', '')) ;
+    const letraBottom = parseInt(+window.getComputedStyle(letraA).bottom.replace('px', ''));
+    const letraLeft = letraA.offsetLeft;
+    const difference = marioPosicao - letraBottom;
 
     const letterPosition = letraA.offsetLeft;
     if(letterPosition<=-2){
@@ -73,23 +88,18 @@ const loop = setInterval(() => {
         clearInterval(loop);
     }
 
-}, 10);
-
-setInterval(() =>{
-    const marioPosicao = parseInt(+window.getComputedStyle(mario).bottom.replace('px', '')) ;
-    const letraBottom = parseInt(+window.getComputedStyle(letraA).bottom.replace('px', ''));
-    const letraLeft = letraA.offsetLeft;
-    const difference = marioPosicao - letraBottom;
 
     if(letraLeft<=90 && letraLeft>0 && difference<=100 && difference>=-100){
     
-        console.log('got');
+        if(runThrowArray(vowels, letraA)){
+            testLifes--;
+            lifes.textContent = parseInt((testLifes-lifes.textContent)/15)+2;
+        } 
 
-        for(let k=0; k<vowels.length; k++){
-            if(letraA.textContent==vowels[k]){
-                lifes.textContent--;
-            }
+        if(runThrowArray(consonants, letraA)){
+            testPoints++;
         }
-        
+        points.textContent = parseInt(testPoints/15);
     }
-}, 300)
+    
+}, 10);
