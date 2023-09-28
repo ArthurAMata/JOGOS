@@ -75,7 +75,7 @@ const loop = setInterval(() => {
         letraA.style.opacity=0;
     }
 
-    if (posicaotubo <= 90 && posicaotubo > 0 && marioPosicao < 80) {
+    if ((posicaotubo <= 90 && posicaotubo > 0 && marioPosicao < 80) || lifes.textContent==0) {
         tubo.style.animation = 'none';
         tubo.style.left = `${posicaotubo}px`;
 
