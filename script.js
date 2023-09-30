@@ -2,7 +2,8 @@ const mario = document.querySelector('.mario');
 const tubo = document.querySelector('.tubo');
 const letraA = document.querySelector('.letras');
 const lifes = document.querySelector('#vidaCount');
-const points = document.querySelector('#pontosCount')
+const points = document.querySelector('#pontosCount');
+const body = document.querySelector('body');
 let isJumping = false;
 
 
@@ -16,11 +17,12 @@ const getRandomLetter = () => {
     letraA.textContent = letter;
 };
 
+
 const moveLetter = () => {
     
-    let randomHeight = parseInt(Math.random()*180);
     setInterval(() =>{
-        randomHeight = parseInt(Math.random()*180);
+        let randomHeight =  Math.random()<0.5 ? parseInt(Math.random()*20) :
+        parseInt(Math.random()*180 + 70);
         
         letraA.style.bottom = `${randomHeight}px`
     }, 2500)
@@ -85,11 +87,19 @@ const loop = setInterval(() => {
         mario.src = 'imgs/morte.png';
         mario.style.width = '150px';
 
+        letraA.animation = 'none'
+        body.style.animation = 'none';
         clearInterval(loop);
     }
 
 
     if(letraLeft<=90 && letraLeft>0 && difference<=100 && difference>=-100){
+
+        letraA.classList.add('effect');
+
+        setTimeout(() =>{
+            letraA.classList.remove('effect');
+        }, 300)
     
         if(runThrowArray(vowels, letraA)){
             testLifes--;
