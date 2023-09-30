@@ -1,9 +1,10 @@
 const mario = document.querySelector('.mario');
 const tubo = document.querySelector('.tubo');
 const letraA = document.querySelector('.letras');
+const lifes = document.querySelector('#vidaCount');
+const points = document.querySelector('#pontosCount');
+const body = document.querySelector('body');
 let isJumping = false;
-const minDistance = 50;
-let tubeSpeed = 2.5;
 
 
 const vowels = 'AEIOU';
@@ -16,27 +17,32 @@ const getRandomLetter = () => {
     letraA.textContent = letter;
 };
 
-//test
+
 const moveLetter = () => {
     
-    let randomHeight = parseInt(Math.random()*180);
-    let randomLeft = parseInt(Math.random()*94)
-
     setInterval(() =>{
-        randomHeight = parseInt(Math.random()*180);
-        randomLeft = parseInt(Math.random()*94)
+        let randomHeight =  Math.random()<0.5 ? parseInt(Math.random()*20) :
+        parseInt(Math.random()*180 + 70);
         
         letraA.style.bottom = `${randomHeight}px`
-        console.log(randomHeight);
-        console.log(randomLeft);
     }, 2500)
 
     letraA.animate(
-        [{ left: `${randomLeft}` }, { left: `-12%` }],
+        [{ left: `70%` }, { left: `-40%` }],
         { duration: 2500 ,iterations: Infinity},
         );
     };
-
+    
+    
+    
+    const runThrowArray = (array, cont) =>{
+        for(let k=0; k<array.length; k++){
+            if(cont.textContent==array[k]){
+                return true;
+            }
+        }
+        return false;
+    }
 
 const pulando = () => {
     if (!isJumping) {
@@ -48,30 +54,17 @@ const pulando = () => {
         }, 750);
     }
 }
-
-
-
-const letterLeft = parseInt(letraA.style.left);
-        if (letterLeft >= 0 && letterLeft <= 50) {
-            const letter = letraA.textContent.toUpperCase();
-            if (vowels.includes(letter)) {
-                points += 1;
-            } else if (consonants.includes(letter)) {
-                lives -= 1;
-            }
-
-            pontosCount.textContent = points;
-            vidasCount.textContent = lives;
-
-            moveLetter();
-        }
-
+let testPoints = 0;
+let testLifes = 3;
 moveLetter(); 
 getRandomLetter();
 document.addEventListener('keydown',pulando);
 const loop = setInterval(() => {
     const posicaotubo = tubo.offsetLeft;
-    const marioPosicao = +window.getComputedStyle(mario).bottom.replace('px', '');
+    const marioPosicao = parseInt(+window.getComputedStyle(mario).bottom.replace('px', '')) ;
+    const letraBottom = parseInt(+window.getComputedStyle(letraA).bottom.replace('px', ''));
+    const letraLeft = letraA.offsetLeft;
+    const difference = marioPosicao - letraBottom;
 
     const letterPosition = letraA.offsetLeft;
     if(letterPosition<=-2){
@@ -84,6 +77,42 @@ const loop = setInterval(() => {
         letraA.style.opacity=0;
     }
 
+    if ((posicaotubo <= 90 && posicaotubo > 0 && marioPosicao < 80) || lifes.textContent==0) {
+        tubo.style.animation = 'none';
+        tubo.style.left = `${posicaotubo}px`;
+
+        mario.style.animation = 'none';
+        mario.style.bottom = `${marioPosicao}px`;
+
+        mario.src = 'imgs/morte.png';
+        mario.style.width = '150px';
+
+        letraA.animation = 'none'
+        body.style.animation = 'none';
+        clearInterval(loop);
+    }
+
+
+    if(letraLeft<=90 && letraLeft>0 && difference<=100 && difference>=-100){
+
+        letraA.classList.add('effect');
+
+        setTimeout(() =>{
+            letraA.classList.remove('effect');
+        }, 300)
+    
+        if(runThrowArray(vowels, letraA)){
+            testLifes--;
+            lifes.textContent = parseInt((testLifes-lifes.textContent)/15)+2;
+        } 
+
+        if(runThrowArray(consonants, letraA)){
+            testPoints++;
+        }
+        points.textContent = parseInt(testPoints/15);
+    }
+<<<<<<< HEAD
+
     if (posicaotubo <= 90 && posicaotubo > 0 && marioPosicao < 80) {
         tubo.style.animation = 'none';
         tubo.style.left = `${posicaotubo}px`;
@@ -96,28 +125,7 @@ const loop = setInterval(() => {
 
         clearInterval(loop);
     }
-}, 10);
-
-
-
-
-
-const loopletter = setInterval(() => {
-    const letterposicao = letter.offsetLeft;
-    if(letterposicao === 0){
-        
-    }
-
-    if (posicaotubo <= 90 && posicaotubo > 0 && marioPosicao < 80) {
-        tubo.style.animation = 'none';
-        tubo.style.left = `${posicaotubo}px`;
-
-        mario.style.animation = 'none';
-        mario.style.bottom = `${marioPosicao}px`;
-
-        mario.src = 'imgs/morte.png';
-        mario.style.width = '150px';
-
-        clearInterval(loop);
-    }
+=======
+    
+>>>>>>> 37d1698b750b8d3ee7af81b1a26f36362f6dd920
 }, 10);
