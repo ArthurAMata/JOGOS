@@ -119,5 +119,5 @@ const loopletter = setInterval(() => {
         mario.style.width = '150px';
 
         clearInterval(loop);
-    }zzzzz
+    }
 }, 10);
