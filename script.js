@@ -111,21 +111,5 @@ const loop = setInterval(() => {
         }
         points.textContent = parseInt(testPoints/15);
     }
-<<<<<<< HEAD
-
-    if (posicaotubo <= 90 && posicaotubo > 0 && marioPosicao < 80) {
-        tubo.style.animation = 'none';
-        tubo.style.left = `${posicaotubo}px`;
-
-        mario.style.animation = 'none';
-        mario.style.bottom = `${marioPosicao}px`;
-
-        mario.src = 'imgs/morte.png';
-        mario.style.width = '150px';
-
-        clearInterval(loop);
-    }
-=======
     
->>>>>>> 37d1698b750b8d3ee7af81b1a26f36362f6dd920
 }, 10);
