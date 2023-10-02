@@ -4,6 +4,8 @@ const letraA = document.querySelector('.letras');
 const lifes = document.querySelector('#vidaCount');
 const points = document.querySelector('#pontosCount');
 const body = document.querySelector('body');
+const pointsGameover = document.querySelector('.gameover p span ')
+const gameover = document.querySelector('.gameover')
 let isJumping = false;
 
 
@@ -51,7 +53,7 @@ const pulando = () => {
         setTimeout(() => {
             mario.classList.remove('pulando');
             isJumping = false;
-        }, 750);
+        }, 650);
     }
 }
 let testPoints = 0;
@@ -87,6 +89,9 @@ const loop = setInterval(() => {
         mario.src = 'imgs/morte.png';
         mario.style.width = '150px';
 
+        pointsGameover.textContent = points.textContent;
+        gameover.style.opacity = 1;
+
         letraA.animation = 'none'
         body.style.animation = 'none';
         clearInterval(loop);
@@ -111,21 +116,4 @@ const loop = setInterval(() => {
         }
         points.textContent = parseInt(testPoints/15);
     }
-<<<<<<< HEAD
-
-    if (posicaotubo <= 90 && posicaotubo > 0 && marioPosicao < 80) {
-        tubo.style.animation = 'none';
-        tubo.style.left = `${posicaotubo}px`;
-
-        mario.style.animation = 'none';
-        mario.style.bottom = `${marioPosicao}px`;
-
-        mario.src = 'imgs/morte.png';
-        mario.style.width = '150px';
-
-        clearInterval(loop);
-    }
-=======
-    
->>>>>>> 37d1698b750b8d3ee7af81b1a26f36362f6dd920
 }, 10);
