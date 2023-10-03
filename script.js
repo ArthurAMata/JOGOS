@@ -9,6 +9,10 @@ const gameover = document.querySelector('.gameover')
 let isJumping = false;
 
 
+const resetGame = () =>{
+    location.reload();
+}
+
 const vowels = 'AEIOU';
 const consonants = 'BCDFGHJKLMNPQRSTVWXYZ'
 
@@ -24,7 +28,7 @@ const moveLetter = () => {
     
     setInterval(() =>{
         let randomHeight =  Math.random()<0.5 ? parseInt(Math.random()*20) :
-        parseInt(Math.random()*180 + 70);
+        parseInt(Math.random()*110 + 70);
         
         letraA.style.bottom = `${randomHeight}px`
     }, 2500)
@@ -80,6 +84,7 @@ const loop = setInterval(() => {
     }
 
     if ((posicaotubo <= 90 && posicaotubo > 0 && marioPosicao < 80) || lifes.textContent==0) {
+        //game animations
         tubo.style.animation = 'none';
         tubo.style.left = `${posicaotubo}px`;
 
@@ -89,16 +94,19 @@ const loop = setInterval(() => {
         mario.src = 'imgs/morte.png';
         mario.style.width = '150px';
 
+        //gameover
         pointsGameover.textContent = points.textContent;
         gameover.style.opacity = 1;
+        
 
+        //letters
         letraA.animation = 'none'
         body.style.animation = 'none';
         clearInterval(loop);
     }
 
 
-    if(letraLeft<=90 && letraLeft>0 && difference<=100 && difference>=-100){
+    if(letraLeft<=90 && letraLeft>0 && difference<=120 && difference>=-120){
 
         letraA.classList.add('effect');
 
