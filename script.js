@@ -27,8 +27,8 @@ const getRandomLetter = () => {
 const moveLetter = () => {
     
     setInterval(() =>{
-        let randomHeight =  Math.random()<0.5 ? parseInt(Math.random()*20) :
-        parseInt(Math.random()*110 + 70);
+        let randomHeight = Math.random()<0.5 ? parseInt(Math.random()*25) :
+        parseInt(Math.random()*100 + 130);
         
         letraA.style.bottom = `${randomHeight}px`
     }, 2500)
@@ -106,7 +106,7 @@ const loop = setInterval(() => {
     }
 
 
-    if(letraLeft<=90 && letraLeft>0 && difference<=120 && difference>=-120){
+    if(letraLeft<=90 && letraLeft>0 && difference<=110 && difference>=-110){
 
         letraA.classList.add('effect');
 
@@ -122,7 +122,7 @@ const loop = setInterval(() => {
         if(runThrowArray(consonants, letraA)){
             testPoints++;
         }
-        points.textContent = parseInt(testPoints/15);
+        points.textContent = parseInt(testPoints/14);
     }
 
     if (posicaotubo <= 90 && posicaotubo > 0 && marioPosicao < 80) {
