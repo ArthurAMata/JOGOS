@@ -66,11 +66,11 @@ moveLetter();
 getRandomLetter();
 document.addEventListener('keydown',pulando);
 const loop = setInterval(() => {
-    const pipePosition = tubo.offsetLeft;
-    const marioPosition = parseInt(+window.getComputedStyle(mario).bottom.replace('px', '')) ;
+    const posicaotubo = tubo.offsetLeft;
+    const marioPosicao = parseInt(+window.getComputedStyle(mario).bottom.replace('px', '')) ;
     const letraBottom = parseInt(+window.getComputedStyle(letraA).bottom.replace('px', ''));
     const letraLeft = letraA.offsetLeft;
-    const difference = marioPosition - letraBottom;
+    const difference = marioPosicao - letraBottom;
 
     const letterPosition = letraA.offsetLeft;
     if(letterPosition<=-2){
@@ -83,13 +83,13 @@ const loop = setInterval(() => {
         letraA.style.opacity=0;
     }
 
-    if ((pipePosition <= 90 && pipePosition > 0 && marioPosition < 80) || lifes.textContent==0) {
+    if ((posicaotubo <= 90 && posicaotubo > 0 && marioPosicao < 80) || lifes.textContent==0) {
         //game animations
         tubo.style.animation = 'none';
-        tubo.style.left = `${pipePosition}px`;
+        tubo.style.left = `${posicaotubo}px`;
 
         mario.style.animation = 'none';
-        mario.style.bottom = `${marioPosition}px`;
+        mario.style.bottom = `${marioPosicao}px`;
 
         mario.src = 'imgs/morte.png';
         mario.style.width = '150px';
@@ -114,14 +114,23 @@ const loop = setInterval(() => {
             letraA.classList.remove('effect');
         }, 300)
     
+        if(runThrowArray(vowels, letraA)){
+            testLifes--;
+            lifes.textContent = parseInt((testLifes-lifes.textContent)/15)+2;
+        } 
+
+        if(runThrowArray(consonants, letraA)){
+            testPoints++;
+        }
+        points.textContent = parseInt(testPoints/15);
     }
 
-    if (pipePosition <= 90 && pipePosition > 0 && marioPosition < 80) {
+    if (posicaotubo <= 90 && posicaotubo > 0 && marioPosicao < 80) {
         tubo.style.animation = 'none';
-        tubo.style.left = `${pipePosition}px`;
+        tubo.style.left = `${posicaotubo}px`;
 
         mario.style.animation = 'none';
-        mario.style.bottom = `${marioPosition}px`;
+        mario.style.bottom = `${marioPosicao}px`;
 
         mario.src = 'imgs/morte.png';
         mario.style.width = '150px';
@@ -130,15 +139,3 @@ const loop = setInterval(() => {
     }
     
 }, 10);
-
-setInterval(() =>{
-    if(letraA.classList.contains('effect')){
-        if(runThrowArray(vowels, letraA)){
-            lifes.textContent--;
-        } 
-        
-        if(runThrowArray(consonants, letraA)){
-            points.textContent++;
-        }
-    }
-}, 300)

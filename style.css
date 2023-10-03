@@ -78,7 +78,7 @@ body{
 }
 
 .pulando {
-    animation: pulo 750ms  ease-out;
+    animation: pulo 750ms  ease;
 }
 @keyframes pulo{
     0%{
@@ -90,7 +90,7 @@ body{
     }
     
     100%{
-        bottom: 0;
+        bottom: 0px;
     }
 
 }
