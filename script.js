@@ -113,16 +113,14 @@ const loop = setInterval(() => {
         setTimeout(() =>{
             letraA.classList.remove('effect');
         }, 300)
-    
-        if(runThrowArray(vowels, letraA)){
-            testLifes--;
-            lifes.textContent = parseInt((testLifes-lifes.textContent)/15)+2;
-        } 
 
         if(runThrowArray(consonants, letraA)){
-            testPoints++;
+            // testPoints++;
+            points.textContent++;
         }
-        points.textContent = parseInt(testPoints/15);
+    
+       
+        // points.textContent = parseInt(testPoints/15);
     }
 
     if (posicaotubo <= 90 && posicaotubo > 0 && marioPosicao < 80) {
@@ -139,3 +137,19 @@ const loop = setInterval(() => {
     }
     
 }, 10);
+
+setInterval(() =>{
+    if(letraA.classList.contains('effect')){
+        if(runThrowArray(vowels, letraA)){
+            // testLifes--;
+            if(lifes.textContent==3){
+                lifes.textContent=2;
+            } else if(lifes.textContent==2){
+                lifes.textContent=1;
+            } else if(lifes.textContent==1){
+                lifes.textContent=0;
+            }
+            // lifes.textContent = parseInt((testLifes-lifes.textContent)/15)+2;
+        }
+    }
+}, 300)
