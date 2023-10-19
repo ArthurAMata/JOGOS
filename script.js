@@ -60,6 +60,8 @@ const pulando = () => {
         }, 650);
     }
 }
+let alreadyCollision = false;
+
 moveLetter(); 
 getRandomLetter();
 document.addEventListener('keydown',pulando);
@@ -85,44 +87,42 @@ const loop = setInterval(() => {
         //game animations
         tubo.style.animation = 'none';
         tubo.style.left = `${posicaotubo}px`;
-
+        
         mario.style.animation = 'none';
         mario.style.bottom = `${marioPosicao}px`;
 
         mario.src = 'imgs/morte.png';
         mario.style.width = '150px';
-
+        
         //gameover
         pointsGameover.textContent = points.textContent;
         gameover.style.opacity = 1;
         
-
+        
         //letters
         letraA.animation = 'none'
         body.style.animation = 'none';
         clearInterval(loop);
     }
+    
+        if(letraLeft<=90 && letraLeft>0 && difference<=110 && difference>=-110){
+            if(!alreadyCollision){
+            letraA.classList.add('effect');
+            
+            setTimeout(() =>{
+                letraA.classList.remove('effect');
+            }, 300)
 
+            if(runThrowArray(consonants, letraA)){
+                points.innerText++;
+            }
 
-    if(letraLeft<=90 && letraLeft>0 && difference<=110 && difference>=-110){
-        
-        letraA.classList.add('effect');
-        
-        setTimeout(() =>{
-            letraA.classList.remove('effect');
-        }, 300)
-
-        if(runThrowArray(consonants, letraA)){
-            points.textContent++;
+            if(runThrowArray(vowels, letraA)){
+                lifes.textContent--;
+                alreadyCollision=true;
+            }
         }
+    } else{
+        alreadyCollision = false;
     }
 }, 10);
-
-//splited loop to verify lifes
-setInterval(() =>{
-    if(letraA.classList.contains('effect')){
-        if(runThrowArray(vowels, letraA)){
-            lifes.textContent--;
-        }
-    }
-}, 290)
