@@ -4,11 +4,12 @@ const letraA = document.querySelector('.letras');
 const lifes = document.querySelector('#vidaCount');
 const points = document.querySelector('#pontosCount');
 const body = document.querySelector('body');
-const pointsGameover = document.querySelector('.gameover p span ')
-const gameover = document.querySelector('.gameover')
+const pointsGameover = document.querySelector('.gameover p span ');
+const gameover = document.querySelector('.gameover');
+const gameBase = document.querySelector('.base-jogo');
 let isJumping = false;
 
-
+let animationDuration = 2500;
 const resetGame = () =>{
     location.reload();
 }
@@ -31,11 +32,11 @@ const moveLetter = () => {
         parseInt(Math.random()*100 + 130);
         
         letraA.style.bottom = `${randomHeight}px`
-    }, 2500)
+    }, animationDuration)
 
     letraA.animate(
         [{ left: `70%` }, { left: `-40%` }],
-        { duration: 2500 ,iterations: Infinity},
+        { duration: animationDuration ,iterations: Infinity},
         );
     };
     
@@ -124,5 +125,9 @@ const loop = setInterval(() => {
         }
     } else{
         alreadyCollision = false;
+    }
+
+    if(points.textContent>100){
+        gameBase.style.background='#691717';
     }
 }, 10);
