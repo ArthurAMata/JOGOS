@@ -60,8 +60,6 @@ const pulando = () => {
         }, 650);
     }
 }
-let testPoints = 0;
-let testLifes = 3;
 moveLetter(); 
 getRandomLetter();
 document.addEventListener('keydown',pulando);
@@ -107,49 +105,24 @@ const loop = setInterval(() => {
 
 
     if(letraLeft<=90 && letraLeft>0 && difference<=110 && difference>=-110){
-
+        
         letraA.classList.add('effect');
-
+        
         setTimeout(() =>{
             letraA.classList.remove('effect');
         }, 300)
 
         if(runThrowArray(consonants, letraA)){
-            // testPoints++;
             points.textContent++;
         }
-    
-       
-        // points.textContent = parseInt(testPoints/15);
     }
-
-    if (posicaotubo <= 90 && posicaotubo > 0 && marioPosicao < 80) {
-        tubo.style.animation = 'none';
-        tubo.style.left = `${posicaotubo}px`;
-
-        mario.style.animation = 'none';
-        mario.style.bottom = `${marioPosicao}px`;
-
-        mario.src = 'imgs/morte.png';
-        mario.style.width = '150px';
-
-        clearInterval(loop);
-    }
-    
 }, 10);
 
+//splited loop to verify lifes
 setInterval(() =>{
     if(letraA.classList.contains('effect')){
         if(runThrowArray(vowels, letraA)){
-            // testLifes--;
-            if(lifes.textContent==3){
-                lifes.textContent=2;
-            } else if(lifes.textContent==2){
-                lifes.textContent=1;
-            } else if(lifes.textContent==1){
-                lifes.textContent=0;
-            }
-            // lifes.textContent = parseInt((testLifes-lifes.textContent)/15)+2;
+            lifes.textContent--;
         }
     }
-}, 300)
+}, 290)
