@@ -171,3 +171,13 @@ body{
 .gameover button:hover{
     transform: rotate(240deg);
 }
+
+/* responsivity */
+
+@media (max-width: 700px){
+
+    body{
+        margin-top: 100px;
+    }
+
+}
