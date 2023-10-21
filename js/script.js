@@ -10,6 +10,8 @@ const gameBase = document.querySelector('.base-jogo');
 const restartButton = gameover.querySelector('button');
 const nickSpan = document.querySelector('.gameover h2 span')
 let isJumping = false;
+if(!window.localStorage.getItem('Nickname'))
+    window.location='index.html';
 
 let animationDuration = 2500;
 const resetGame = () =>{
