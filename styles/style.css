@@ -11,8 +11,8 @@
     color: white;
 }
 body{
-    background-image: url('./imgs/ground.png');
-    background-size: 40px;
+    background-image: url('../imgs/ground.png');
+    background-size: 200px;
     background-position: 0px;
     animation: move-ground 2.5s infinite linear;
 }
@@ -155,6 +155,7 @@ body{
     outline: none;
     transition: .4s;
     margin-top: 5px;
+    display: none;
 }
 
 .gameover button i{

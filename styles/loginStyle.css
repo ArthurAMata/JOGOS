@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Pixelify sans', sans-serif;
+}
+
+*::selection{
+  background-color: green;
+  color: white;
+}
+
+.loginScreen{
+  position: absolute;
+  z-index: 10000;
+  height: 100%;
+  width: 100%;
+  backdrop-filter: brightness(10%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loginScreen form{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.loginScreen form input{
+  background-color: transparent;
+  outline: none;
+  border: 2px solid white;
+  border-radius: 10px;
+  padding: 4px 10px;
+  color: white;
+}
+
+form{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loginScreen form h1{
+  color: white;
+}
+
+.loginScreen form button{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 7px;
+  border-radius: 10px;
+  background-color: transparent;
+  font-size: 1.2rem;
+  color: white;
+  transition: .4s;
+}
+
+.loginScreen form button:enabled:hover{
+  padding: 7px 15px;
+  cursor: pointer;
+}
+
+.loginScreen form button:disabled{
+  color: red;
+  background-color: rgba(45, 10, 10, 0.558);
+}

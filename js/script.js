@@ -7,6 +7,7 @@ const body = document.querySelector('body');
 const pointsGameover = document.querySelector('.gameover p span ');
 const gameover = document.querySelector('.gameover');
 const gameBase = document.querySelector('.base-jogo');
+const restartButton = gameover.querySelector('button');
 let isJumping = false;
 
 let animationDuration = 2500;
@@ -38,11 +39,11 @@ const moveLetter = () => {
         [{ left: `70%` }, { left: `-40%` }],
         { duration: animationDuration ,iterations: Infinity},
         );
-    };
+};
     
+
     
-    
-    const runThrowArray = (array, cont) =>{
+const runThrowArray = (array, cont) =>{
         for(let k=0; k<array.length; k++){
             if(cont.textContent==array[k]){
                 return true;
@@ -62,10 +63,11 @@ const pulando = () => {
     }
 }
 let alreadyCollision = false;
-
+const mainFunction = () =>{
 moveLetter(); 
 getRandomLetter();
 document.addEventListener('keydown',pulando);
+document.addEventListener('touchstart',pulando);
 const loop = setInterval(() => {
     const posicaotubo = tubo.offsetLeft;
     const marioPosicao = parseInt(+window.getComputedStyle(mario).bottom.replace('px', '')) ;
@@ -98,6 +100,7 @@ const loop = setInterval(() => {
         //gameover
         pointsGameover.textContent = points.textContent;
         gameover.style.opacity = 1;
+        restartButton.style.display='inline';
         
         
         //letters
@@ -131,3 +134,6 @@ const loop = setInterval(() => {
         gameBase.style.background='#691717';
     }
 }, 10);
+}
+
+mainFunction();
