@@ -148,6 +148,11 @@ body{
     color: white;
 }
 
+.gameover h2{
+    color: white;
+    font-size: 1.2rem;
+}
+
 .gameover button{
     cursor: pointer;
     background-color: transparent;

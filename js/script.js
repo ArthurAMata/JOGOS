@@ -8,6 +8,7 @@ const pointsGameover = document.querySelector('.gameover p span ');
 const gameover = document.querySelector('.gameover');
 const gameBase = document.querySelector('.base-jogo');
 const restartButton = gameover.querySelector('button');
+const nickSpan = document.querySelector('.gameover h2 span')
 let isJumping = false;
 
 let animationDuration = 2500;
@@ -101,6 +102,7 @@ const loop = setInterval(() => {
         pointsGameover.textContent = points.textContent;
         gameover.style.opacity = 1;
         restartButton.style.display='inline';
+        nickSpan.textContent = window.localStorage.getItem('Nickname');
         
         
         //letters

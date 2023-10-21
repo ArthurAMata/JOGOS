@@ -6,6 +6,7 @@ form.addEventListener('submit', (e) =>{
 
   //send datas to a future api... (only possible ideas)
   console.log(input.value);
+  window.localStorage.setItem('Nickname', input.value);
   window.location='game.html'
 })
 
