@@ -128,6 +128,16 @@ body{
     transition: .5s;
     opacity: 0;
     text-shadow: 2px 2px 1px gray;
+    animation: letter-move 2.5s infinite linear;
+}
+
+@keyframes letter-move {
+    from{
+        left: 70%;
+    }
+    to{
+        left: -40%;
+    }
 }
 .gameover{
     backdrop-filter: brightness(20%) saturate(0%);

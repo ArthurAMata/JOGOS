@@ -31,17 +31,12 @@ const getRandomLetter = () => {
 
 const moveLetter = () => {
     
-    setInterval(() =>{
+    const letterAnimation = setInterval(() =>{
         let randomHeight = Math.random()<0.5 ? parseInt(Math.random()*25) :
         parseInt(Math.random()*100 + 130);
         
         letraA.style.bottom = `${randomHeight}px`
     }, animationDuration)
-
-    letraA.animate(
-        [{ left: `70%` }, { left: `-40%` }],
-        { duration: animationDuration ,iterations: Infinity},
-        );
 };
     
 
@@ -66,19 +61,47 @@ const pulando = () => {
     }
 }
 let alreadyCollision = false;
-const mainFunction = () =>{
+let paused = false;
 moveLetter(); 
 getRandomLetter();
 document.addEventListener('keydown',pulando);
 document.addEventListener('touchstart',pulando);
 const loop = setInterval(() => {
+
     const posicaotubo = tubo.offsetLeft;
     const marioPosicao = parseInt(+window.getComputedStyle(mario).bottom.replace('px', '')) ;
     const letraBottom = parseInt(+window.getComputedStyle(letraA).bottom.replace('px', ''));
     const letraLeft = letraA.offsetLeft;
     const difference = marioPosicao - letraBottom;
-
     const letterPosition = letraA.offsetLeft;
+
+    if(paused){
+         //game animations
+         tubo.style.animation = 'none';
+         tubo.style.left = `${posicaotubo}px`;
+         
+         mario.style.animation = 'none';
+         mario.style.bottom = `${marioPosicao}px`;
+         mario.style.width = '150px';
+         
+         letraA.style.animation='none'; 
+         letraA.style.left=`${letterPosition}px`
+         
+         body.style.animation = 'none';
+         return;
+    } else{
+        tubo.style.animation='';
+        tubo.style.left='';
+
+        mario.style.animation='';
+        mario.style.bottom='';
+
+        letraA.style.animation='';
+
+        body.style.animation='';
+    };
+
+
     if(letterPosition<=-2){
         getRandomLetter();
     }
@@ -90,27 +113,14 @@ const loop = setInterval(() => {
     }
 
     if ((posicaotubo <= 90 && posicaotubo > 0 && marioPosicao < 80) || lifes.textContent==0) {
-        //game animations
-        tubo.style.animation = 'none';
-        tubo.style.left = `${posicaotubo}px`;
-        
-        mario.style.animation = 'none';
-        mario.style.bottom = `${marioPosicao}px`;
+       paused=true;   
 
-        mario.src = 'imgs/morte.png';
-        mario.style.width = '150px';
-        
         //gameover
+        mario.src = 'imgs/morte.png';
         pointsGameover.textContent = points.textContent;
         gameover.style.opacity = 1;
         restartButton.style.display='inline';
         nickSpan.textContent = window.localStorage.getItem('Nickname');
-        
-        
-        //letters
-        letraA.animation = 'none'
-        body.style.animation = 'none';
-        clearInterval(loop);
     }
     
         if(letraLeft<=90 && letraLeft>0 && difference<=110 && difference>=-110){
@@ -137,7 +147,13 @@ const loop = setInterval(() => {
     if(points.textContent>100){
         gameBase.style.background='#691717';
     }
-}, 10);
-}
 
-mainFunction();
+}, 10);
+
+//working in pause button
+
+// document.addEventListener('keydown', ({ key }) =>{
+//     if(key==='r'){
+//        paused = !paused;
+//     } 
+// })
