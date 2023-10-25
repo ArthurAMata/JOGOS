@@ -29,15 +29,13 @@ const getRandomLetter = () => {
 };
 
 
-const moveLetter = () => {
     
     const letterAnimation = setInterval(() =>{
         let randomHeight = Math.random()<0.5 ? parseInt(Math.random()*25) :
         parseInt(Math.random()*100 + 130);
         
         letraA.style.bottom = `${randomHeight}px`
-    }, animationDuration)
-};
+    }, animationDuration);
     
 
     
@@ -62,7 +60,6 @@ const pulando = () => {
 }
 let alreadyCollision = false;
 let paused = false;
-moveLetter(); 
 getRandomLetter();
 document.addEventListener('keydown',pulando);
 document.addEventListener('touchstart',pulando);
@@ -88,6 +85,7 @@ const loop = setInterval(() => {
          letraA.style.left=`${letterPosition}px`
          
          body.style.animation = 'none';
+         clearInterval(letterAnimation);
          return;
     } else{
         tubo.style.animation='';
@@ -150,10 +148,9 @@ const loop = setInterval(() => {
 
 }, 10);
 
-//working in pause button
 
-// document.addEventListener('keydown', ({ key }) =>{
-//     if(key==='r'){
-//        paused = !paused;
-//     } 
-// })
+document.addEventListener('keydown', ({ key }) =>{
+    if(key==='r'){
+       paused = !paused;
+    } 
+})
