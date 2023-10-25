@@ -1,14 +1,15 @@
-const mario = document.querySelector('.mario');
-const tubo = document.querySelector('.tubo');
-const letraA = document.querySelector('.letras');
-const lifes = document.querySelector('#vidaCount');
-const points = document.querySelector('#pontosCount');
-const body = document.querySelector('body');
-const pointsGameover = document.querySelector('.gameover p span ');
-const gameover = document.querySelector('.gameover');
 const gameBase = document.querySelector('.base-jogo');
+const gameover = document.querySelector('.gameover');
+const mario = gameBase.querySelector('.mario');
+const tubo = gameBase.querySelector('.tubo');
+const letraA = gameBase.querySelector('.letras');
+const lifes = gameBase.querySelector('#vidaCount');
+const points = gameBase.querySelector('#pontosCount');
+const body = document.querySelector('body');
+const pointsGameover = gameover.querySelector('p span ');
 const restartButton = gameover.querySelector('button');
-const nickSpan = document.querySelector('.gameover h2 span')
+const nickSpan = gameover.querySelector('h2 span')
+const pauseButton = gameBase.querySelector('button i');
 let isJumping = false;
 if(!window.localStorage.getItem('Nickname'))
     window.location='index.html';
@@ -48,6 +49,8 @@ const runThrowArray = (array, cont) =>{
         return false;
     }
 
+
+
 const pulando = () => {
     if (!isJumping) {
         isJumping = true;
@@ -61,10 +64,8 @@ const pulando = () => {
 let alreadyCollision = false;
 let paused = false;
 getRandomLetter();
-document.addEventListener('keydown',pulando);
-document.addEventListener('touchstart',pulando);
 const loop = setInterval(() => {
-
+    
     const posicaotubo = tubo.offsetLeft;
     const marioPosicao = parseInt(+window.getComputedStyle(mario).bottom.replace('px', '')) ;
     const letraBottom = parseInt(+window.getComputedStyle(letraA).bottom.replace('px', ''));
@@ -74,19 +75,19 @@ const loop = setInterval(() => {
 
     if(paused){
          //game animations
-         tubo.style.animation = 'none';
-         tubo.style.left = `${posicaotubo}px`;
+         tubo.style.animationPlayState='paused';
          
-         mario.style.animation = 'none';
+         mario.style.animationPlayState='paused';
          mario.style.bottom = `${marioPosicao}px`;
          mario.style.width = '150px';
          
-         letraA.style.animation='none'; 
+         letraA.style.animationPlayState='paused'; 
          letraA.style.left=`${letterPosition}px`
          
-         body.style.animation = 'none';
+         body.style.animationPlayState='paused';
          clearInterval(letterAnimation);
          return;
+         
     } else{
         tubo.style.animation='';
         tubo.style.left='';
@@ -98,7 +99,6 @@ const loop = setInterval(() => {
 
         body.style.animation='';
     };
-
 
     if(letterPosition<=-2){
         getRandomLetter();
@@ -117,6 +117,7 @@ const loop = setInterval(() => {
         mario.src = 'imgs/morte.png';
         pointsGameover.textContent = points.textContent;
         gameover.style.opacity = 1;
+        gameover.style.zIndex='10000'
         restartButton.style.display='inline';
         nickSpan.textContent = window.localStorage.getItem('Nickname');
     }
@@ -148,9 +149,20 @@ const loop = setInterval(() => {
 
 }, 10);
 
-
 document.addEventListener('keydown', ({ key }) =>{
-    if(key==='r'){
-       paused = !paused;
-    } 
-})
+    if(key==='Escape'){
+        paused = !paused;
+     } else{
+        pulando();
+     }
+});
+
+document.addEventListener('touchstart', ({ target }) =>{
+        console.log(target);
+        if(target===pauseButton){
+            paused=!paused;
+            return;
+        };
+        pulando();
+    
+    });
