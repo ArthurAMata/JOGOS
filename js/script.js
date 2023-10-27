@@ -9,7 +9,8 @@ const body = document.querySelector('body');
 const pointsGameover = gameover.querySelector('p span ');
 const restartButton = gameover.querySelector('button');
 const nickSpan = gameover.querySelector('h2 span')
-const pauseButton = gameBase.querySelector('button i');
+const pauseButton = gameBase.querySelector('button img');
+const pauseScreen = document.querySelector('.pauseScreen');
 let isJumping = false;
 if(!window.localStorage.getItem('Nickname'))
     window.location='index.html';
@@ -117,7 +118,7 @@ const loop = setInterval(() => {
         mario.src = 'imgs/morte.png';
         pointsGameover.textContent = points.textContent;
         gameover.style.opacity = 1;
-        gameover.style.zIndex='10000'
+        gameover.style.zIndex='1000'
         restartButton.style.display='inline';
         nickSpan.textContent = window.localStorage.getItem('Nickname');
     }
@@ -152,17 +153,37 @@ const loop = setInterval(() => {
 document.addEventListener('keydown', ({ key }) =>{
     if(key==='Escape'){
         paused = !paused;
+        console.log(pauseScreen.style.display);
+        if(pauseScreen.style.display==='' || pauseScreen.style.display==='none'){
+            pauseScreen.style.display='block';
+        } else{
+            pauseScreen.style.display='none'
+        }
      } else{
         pulando();
      }
+
+    
 });
 
-document.addEventListener('touchstart', ({ target }) =>{
-        console.log(target);
-        if(target===pauseButton){
-            paused=!paused;
-            return;
-        };
-        pulando();
+function clickInPause(e){
+
+    if(e.type==='touchstart') e.preventDefault();
+    const { target } = e;
+
+    if(target===pauseButton){
+        paused=!paused;
+        if(pauseScreen.style.display==='' || pauseScreen.style.display==='none'){
+            pauseScreen.style.display='block';
+        } else{
+            pauseScreen.style.display='none'
+        }
+        return;
+    };
+
+    pulando();
     
-    });
+}
+
+document.addEventListener('touchstart', clickInPause, { passive: false });
+document.addEventListener('click', clickInPause, { passive: false });
