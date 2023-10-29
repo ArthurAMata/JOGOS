@@ -12,17 +12,22 @@ const nickSpan = gameover.querySelector('h2 span')
 const pauseButton = gameBase.querySelector('button img');
 const pauseScreen = document.querySelector('.pauseScreen');
 let isJumping = false;
+
+//getting the user's nickname
 if(!window.localStorage.getItem('Nickname'))
     window.location='index.html';
 
 let animationDuration = 2500;
+//basic reset game funcion
 const resetGame = () =>{
     location.reload();
 }
 
+//splitting the group of letters in vowels or consonants
 const vowels = 'AEIOU';
 const consonants = 'BCDFGHJKLMNPQRSTVWXYZ'
 
+//pick a random letter system
 const getRandomLetter = () => {
     const letter = Math.random() >= 0.5 ? vowels[parseInt(Math.random()*vowels.length)] :
     consonants[parseInt(Math.random()*consonants.length)]
@@ -31,26 +36,13 @@ const getRandomLetter = () => {
 };
 
 
-    
+    //pick a random height for letter
     const letterAnimation = setInterval(() =>{
         let randomHeight = Math.random()<0.5 ? parseInt(Math.random()*25) :
         parseInt(Math.random()*100 + 130);
         
         letraA.style.bottom = `${randomHeight}px`
     }, animationDuration);
-    
-
-    
-const runThrowArray = (array, cont) =>{
-        for(let k=0; k<array.length; k++){
-            if(cont.textContent==array[k]){
-                return true;
-            }
-        }
-        return false;
-    }
-
-
 
 const pulando = () => {
     if (!isJumping) {
@@ -65,6 +57,8 @@ const pulando = () => {
 let alreadyCollision = false;
 let paused = false;
 getRandomLetter();
+
+//main loop game
 const loop = setInterval(() => {
     
     const posicaotubo = tubo.offsetLeft;
@@ -75,7 +69,7 @@ const loop = setInterval(() => {
     const letterPosition = letraA.offsetLeft;
 
     if(paused){
-         //game animations
+         //pause the entire game
          tubo.style.animationPlayState='paused';
          
          mario.style.animationPlayState='paused';
@@ -90,6 +84,7 @@ const loop = setInterval(() => {
          return;
          
     } else{
+        //resume the entire game
         tubo.style.animation='';
         tubo.style.left='';
 
@@ -101,6 +96,7 @@ const loop = setInterval(() => {
         body.style.animation='';
     };
 
+    //letter animations
     if(letterPosition<=-2){
         getRandomLetter();
     }
@@ -122,7 +118,7 @@ const loop = setInterval(() => {
         restartButton.style.display='inline';
         nickSpan.textContent = window.localStorage.getItem('Nickname');
     }
-    
+    //touching in a letter
         if(letraLeft<=90 && letraLeft>0 && difference<=110 && difference>=-110){
             if(!alreadyCollision){
             letraA.classList.add('effect');
@@ -131,11 +127,11 @@ const loop = setInterval(() => {
                 letraA.classList.remove('effect');
             }, 300)
 
-            if(runThrowArray(consonants, letraA)){
+            if(consonants[consonants.indexOf(letraA.textContent)]){
                 points.innerText++;
             }
 
-            if(runThrowArray(vowels, letraA)){
+            if(vowels[vowels.indexOf(letraA.textContent)]){
                 lifes.textContent--;
                 alreadyCollision=true;
             }
@@ -143,13 +139,14 @@ const loop = setInterval(() => {
     } else{
         alreadyCollision = false;
     }
-
+    //points counter
     if(points.textContent>100){
         gameBase.style.background='#691717';
     }
 
 }, 10);
 
+//press a key to jump (if pressed key is ESC, open the settings screen)
 document.addEventListener('keydown', ({ key }) =>{
     if(key==='Escape'){
         paused = !paused;
@@ -166,6 +163,7 @@ document.addEventListener('keydown', ({ key }) =>{
     
 });
 
+//open || close settings screen
 function clickInPause(e){
 
     if(e.type==='touchstart') e.preventDefault();
@@ -185,5 +183,10 @@ function clickInPause(e){
     
 }
 
+//click to jump
 document.addEventListener('touchstart', clickInPause, { passive: false });
 document.addEventListener('click', clickInPause, { passive: false });
+
+//click to restart game
+restartButton.addEventListener('click', resetGame);
+restartButton.addEventListener('touchstart', resetGame);
