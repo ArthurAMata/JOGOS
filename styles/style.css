@@ -49,7 +49,7 @@ body{
 }
 
 .base-jogo button{
-    background-color: rgb(215, 126, 93);
+    background-color: rgba(215, 126, 93, 0.689);
     border: none;
     outline: none;
     position: absolute;
@@ -61,7 +61,7 @@ body{
     right: 20px;
     top: 20px;
     cursor: pointer;
-    color: white;
+    border-radius: 10px;
 }
 
 .base-jogo button img{
@@ -75,8 +75,8 @@ body{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 400px;
-    height: 500px;
+    width: 600px;
+    height: 600px;
     z-index: 10000;
     display: none;
     padding: 30px;
@@ -84,6 +84,57 @@ body{
 
 .pauseScreen h2{
     color: white;
+}
+
+.guides{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-top: 30px;
+    color: white;
+    font-size: 1rem;
+}
+
+.guides aside{
+    width: 100%;
+    display: flex;
+    gap: 30px;
+}
+
+.guides aside p::after{
+    content: '';
+    display: block;
+    background-color: orangered;
+    width: 20%;
+    height: 1.5px;
+    margin-top: 10px;
+}
+
+.guides aside img{
+    width: 100px;
+    border-radius: 10px;
+}
+
+.guides button{
+    background-color: transparent;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+
+.guides button:hover{
+   transform: scale(1.1);
+
+}
+
+.guides button:active{
+  filter: drop-shadow(3px 3px black) invert(100%) hue-rotate(180deg);
+}
+
+.guides button img{
+    width: 100px;
 }
 
 .vidas, .pontos{
