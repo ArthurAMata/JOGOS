@@ -109,15 +109,18 @@ const loop = setInterval(() => {
     }
 
     if ((posicaotubo <= 90 && posicaotubo > 0 && marioPosicao < 80) || lifes.textContent==0) {
-       paused=true;   
-
         //gameover
+        paused=true;
         mario.src = 'imgs/morte.png';
+        tubo.style.left=`${posicaotubo}px`
+        mario.style.bottom=`${marioPosicao}px`
+        body.style.animationPlayState='paused';
         pointsGameover.textContent = points.textContent;
         gameover.style.opacity = 1;
         gameover.style.zIndex='1000'
         restartButton.style.display='inline';
         nickSpan.textContent = window.localStorage.getItem('Nickname');
+        clearInterval(loop);
     }
     //touching in a letter
         if(letraLeft<=90 && letraLeft>0 && difference<=110 && difference>=-110){
@@ -156,7 +159,7 @@ document.addEventListener('keydown', ({ key }) =>{
         } else{
             pauseScreen.style.display='none'
         }
-     } else{
+     } else if(gameover.style.opacity!=1){
         pulando();
      }
 
@@ -179,7 +182,7 @@ function clickFunction(e){
         return;
     };
 
-    pulando();
+    if(gameover.style.opacity!=1) pulando();
     
 }
 
