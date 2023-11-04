@@ -84,13 +84,13 @@ const loop = setInterval(() => {
         tubo.style.left='';
 
         mario.style.animationPlayState='';
-        // mario.style.bottom='';
 
         letraA.style.animation='';
 
         body.style.animation='';
     };
 
+    //check to make mario able to jump
     if(marioPosicao>170){
         jumpC++;
     }
@@ -113,17 +113,18 @@ const loop = setInterval(() => {
 
     if ((posicaotubo <= 90 && posicaotubo > 0 && marioPosicao < 80) || lifes.textContent==0) {
         //gameover
-        paused=true;
+        clearInterval(loop);
         mario.src = 'imgs/morte.png';
+        mario.style.animationPlayState='paused';
+        
         tubo.style.left=`${posicaotubo}px`
-        mario.style.bottom=`${marioPosicao}px`
+        
         body.style.animationPlayState='paused';
         pointsGameover.textContent = points.textContent;
         gameover.style.opacity = 1;
         gameover.style.zIndex='1000'
         restartButton.style.display='inline';
         nickSpan.textContent = window.localStorage.getItem('Nickname');
-        clearInterval(loop);
     }
     //touching in a letter
         if(letraLeft<=90 && letraLeft>0 && difference<=110 && difference>=-110){
