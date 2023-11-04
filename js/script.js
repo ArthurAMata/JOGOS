@@ -45,20 +45,17 @@ const getRandomLetter = () => {
         letraA.style.bottom = `${randomHeight}px`
     }, animationDuration);
 
+
 const pulando = () => {
     if (!isJumping) {
         isJumping = true;
         mario.classList.add('pulando');
-        setTimeout(() => {
-            mario.classList.remove('pulando');
-            isJumping = false;
-        }, 650);
     }
 }
 let alreadyCollision = false;
 let paused = false;
 getRandomLetter();
-
+let jumpC=0;
 //main loop game
 const loop = setInterval(() => {
     
@@ -68,35 +65,41 @@ const loop = setInterval(() => {
     const letraLeft = letraA.offsetLeft;
     const difference = marioPosicao - letraBottom;
     const letterPosition = letraA.offsetLeft;
-
     if(paused){
          //pause the entire game
          tubo.style.animationPlayState='paused';
          
          mario.style.animationPlayState='paused';
-         mario.style.bottom = `${marioPosicao}px`;
          mario.style.width = '150px';
          
          letraA.style.animationPlayState='paused'; 
          letraA.style.left=`${letterPosition}px`
-         
          body.style.animationPlayState='paused';
          clearInterval(letterAnimation);
          return;
          
     } else{
         //resume the entire game
-        tubo.style.animation='';
+        tubo.style.animationPlayState='';
         tubo.style.left='';
 
-        mario.style.animation='';
-        mario.style.bottom='';
+        mario.style.animationPlayState='';
+        // mario.style.bottom='';
 
         letraA.style.animation='';
 
         body.style.animation='';
     };
 
+    if(marioPosicao>170){
+        jumpC++;
+    }
+
+    if(jumpC>0 && marioPosicao<10){
+        jumpC=0;
+        mario.classList.remove('pulando');
+        isJumping=false;
+    }
     //letter animations
     if(letterPosition<=-2){
         getRandomLetter();
