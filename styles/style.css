@@ -113,7 +113,7 @@ body{
 }
 
 .guides aside img{
-    width: 100px;
+    max-width: 100px;
     border-radius: 10px;
 }
 
@@ -274,4 +274,27 @@ body{
 
 .gameover button:hover{
     transform: rotate(240deg);
+}
+
+@media (max-width: 700px){
+    .pauseScreen{
+        height: 600px;
+        width: 400px;
+    }
+}
+
+@media (max-width: 460px){
+    .pauseScreen{
+        width: 330px;
+        font-size: .8rem;
+        padding: 23px;
+    }
+
+    .pauseScreen button img{
+        width: 70px;
+    }
+
+    .pauseScreen .guides{
+        font-size: .8rem;
+    }
 }
