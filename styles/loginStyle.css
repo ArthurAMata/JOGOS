@@ -18,22 +18,22 @@
 
 body{
   overflow: hidden;
+  background-image: url('../imgs/background.jpg');
+  background-size: cover;
 }
 
 .loginScreen{
-  position: absolute;
-  z-index: 10000;
-  height: 100%;
+  backdrop-filter: brightness(40%) blur(7px);
+  height: 100vh;
   width: 100%;
-  backdrop-filter: brightness(10%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .loginScreen form{
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
   gap: 20px;
   text-align: center;
 }
@@ -63,7 +63,8 @@ form{
   align-items: center;
   padding: 7px;
   border-radius: 10px;
-  background-color: transparent;
+  border: 2px solid white;
+  background-color: rgb(102, 214, 102);
   font-size: 1.2rem;
   color: white;
   transition: .4s;
